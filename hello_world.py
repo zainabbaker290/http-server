@@ -1,6 +1,5 @@
 from flask import Flask
 import json
-from users import users
 
 app = Flask(__name__)
 
@@ -8,35 +7,26 @@ app = Flask(__name__)
 def hello():
         return "Hello World!"
 
-@app.route("/all_users")
+@app.route("/users", methods=["GET"])
 def all_users():
-    #comverts python object into json string
-    json_dump_users = json.dumps(users)
-    #changes it to python dictionary
-    json_object_users = json.loads(json_dump_users)
-    return json_object_users
+    #open python file and read it
+    users_file = open("users.json", "r")
+    #using json loads to read from a string 
+    users_object = json.load(users_file)
+    return users_object
 
-@app.route("/get_user/<user_id>")
+@app.route("/users/<user_id>", methods=["GET"])
 def get_user(user_id):
-    user_returned = None
-    json_dump_users = json.dumps(users)
-    json_object_users = json.loads(json_dump_users)
+    users_file = open("users.json", "r")
+    users_object = json.load(users_file)
 
-    for key, value in json_object_users.items():
+    #using dictionary attributes to access key and values 
+    for key, value in users_object.items():
         for v in value:
             if v == user_id:
                 user_returned = value
-                result = user_returned[0] + " " + user_returned[1] + " " + user_returned[2]
+                result = key + ": " + user_returned[0] + " " + user_returned[1] + " " + user_returned[2]
                 return result
-
-@app.route("/add_user", methods=["POST"])
-def add_user(name, dob, user_id):
-    #does not work
-    json_dump_users = json.dumps(users)
-    json_object_users = json.loads(json_dump_users)
-    user_key = name.lower()
-    json_object_users[user_key] = [name, dob, user_id]
-    return json_object_users
 
 if __name__ == "__main__":
     app.run()

@@ -3,10 +3,6 @@ import json
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-        return "Hello World!"
-
 @app.route("/users", methods=["GET"])
 def all_users():
     #open python file and read it

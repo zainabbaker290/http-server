@@ -2,6 +2,7 @@ from flask import Flask
 import json
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = "this-is-my-secret-key"
 
 @app.route("/users", methods=["GET"])
 def all_users():

@@ -2,7 +2,6 @@ from flask import Flask, request
 import json
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "this-is-my-secret-key"
 
 @app.route("/users", methods=["GET"])
 def all_users():
@@ -16,9 +15,9 @@ def all_users():
 def get_user(user_id):
     users_file = open("users.json", "r")
     users_object = json.load(users_file)
-    list_of_users = users_file["friends"]
+    list_of_users = users_object["friends"]
     for user in list_of_users:
-        if user["user_id"] == user_id:
+        if user["user_id"] == str(user_id):
             return json.dumps(user)
 
 @app.route("/add_user", methods=["POST"])

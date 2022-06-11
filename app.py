@@ -1,5 +1,3 @@
-from distutils.debug import DEBUG
-from pickle import TRUE
 from flask import Flask, request
 import json
 

@@ -20,14 +20,21 @@ def get_user(user_id):
         if user["user_id"] == str(user_id):
             return json.dumps(user)
 
-@app.route("/add_user", methods=["POST"])
+@app.route("/add_user", methods=["GET"])
 def add_user():
-    users_file = open("users.json", "a")
+    users_file = open("users.json", "r")
     users_object = json.load(users_file)
-    data = request.json
-    users_object.write(data)
-
-    return json.dumps(users_object)
+    data = "please work"
+    my_list = users_object["friends"]
+    print(type(my_list))
+    my_new_list = my_list.append(data) #WHY NULL HERE
+    print(my_new_list)
+    my_new_list = json.dumps(my_new_list) 
+    print(my_new_list)
+    with open("users.json", "a") as users_file:
+        users_file.write(my_new_list) 
+    
+    return "test"
 
 if __name__ == "__main__":
     app.run()

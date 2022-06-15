@@ -26,7 +26,7 @@ def add_new_user():
         pass 
 
     if request.method == "POST":
-        users_file = open("users.json", "r+")
+        users_file = open("users.json", "w+")
         print("hello")
         users_object = json.load(users_file)
         data = request.json

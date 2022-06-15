@@ -22,17 +22,13 @@ def get_user(user_id):
 
 @app.route("/add_user", methods=["GET"])
 def add_user():
-    users_file = open("users.json", "r")
+    users_file = open("users.json", "r+")
     users_object = json.load(users_file)
-    data = "please work"
-    my_list = users_object["friends"]
-    print(type(my_list))
-    my_new_list = my_list.append(data) #WHY NULL HERE
-    print(my_new_list)
-    my_new_list = json.dumps(my_new_list) 
-    print(my_new_list)
-    with open("users.json", "a") as users_file:
-        users_file.write(my_new_list) 
+    print(users_object)
+    data = {"x":"please work"}
+    print(data)
+    print(users_object["friends"])
+    print(users_object["friends"].append(data)) #still prints none
     
     return "test"
 

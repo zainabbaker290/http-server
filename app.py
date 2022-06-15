@@ -24,13 +24,9 @@ def get_user(user_id):
 def add_user():
     users_file = open("users.json", "r+")
     users_object = json.load(users_file)
-    print(users_object)
     data = {"x":"please work"}
-    print(data)
-    print(users_object["friends"])
-    print(users_object["friends"].append(data)) #still prints none
-    
-    return "test"
+    users_object["friends"].append(data)
+    return json.dumps(users_object)
 
 if __name__ == "__main__":
     app.run()

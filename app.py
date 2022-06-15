@@ -21,15 +21,20 @@ def get_user(user_id):
             return json.dumps(user)
 
 @app.route("/add_user", methods=["GET", "POST"])
-def add_new_user(user_id):
+def add_new_user():
     if request.method == "GET":
         pass 
 
     if request.method == "POST":
         users_file = open("users.json", "r+")
+        print("hello")
         users_object = json.load(users_file)
-        data = user_id
+        data = request.json
+        print(data)
         users_object["friends"].append(data)
+        print(users_object)
+        users_file.write(json.dumps(users_object))
+
         return data
 
 if __name__ == "__main__":

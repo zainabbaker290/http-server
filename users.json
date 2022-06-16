@@ -1,7 +1,1 @@
-{"friends" :
-    [
-        {"user_id":"12345", "name": "Tim", "dob" : "02/09/02"},
-        {"user_id":"8765", "name": "Sarah", "dob" : "02/08/03"},
-        {"user_id":"6444", "name": "Jack", "dob" : "23/01/09"}
-    ]
-}
+{"friends": [{"user_id": "12345", "name": "Tim", "dob": "02/09/02"}, {"user_id": "8765", "name": "Sarah", "dob": "02/08/03"}, {"user_id": "6444", "name": "Jack", "dob": "23/01/09"}, {"user_id": "8885", "name": "patsy", "dob": "09/05/03"}, {"user_id": "5653", "name": "lily", "dob": "09/12/00"}, {"user_id": "3333", "name": "jim", "dob": "09/09/03"}]}

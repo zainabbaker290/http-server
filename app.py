@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, Response
 import json
 
 app = Flask(__name__)
@@ -34,7 +34,7 @@ def add_new_user():
         users_file = open("users.json", "w")
         users_file.write(json.dumps(users_object))
         users_file.close()
-        return
+        return Response(users_object, status=201)
 
 if __name__ == "__main__":
     app.run()

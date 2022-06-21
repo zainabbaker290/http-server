@@ -3,14 +3,26 @@ import json
 
 app = Flask(__name__)
 
-@app.route("/users", methods=["GET"])
+@app.route("/users", methods=["GET", "POST"])
 def all_users():
-    #open python file and read it
-    users_file = open("users.json", "r")
-    #using json loads to read from a string 
-    users_object = json.load(users_file)
-    users_file.close()
-    return json.dumps(users_object["friends"])
+    if request.method == "GET":
+        #open python file and read it
+        users_file = open("users.json", "r")
+        #using json loads to read from a string 
+        users_object = json.load(users_file)
+        users_file.close()
+        return json.dumps(users_object["friends"])
+    
+    if request.method == "POST":
+        users_file = open("users.json", "r")
+        users_object = json.load(users_file)
+        data = request.json
+        users_object["friends"].append(data)
+        users_file.close()
+        users_file = open("users.json", "w")
+        users_file.write(json.dumps(users_object))
+        users_file.close()
+        return Response(json.dumps(data), status=201)
 
 @app.route("/users/<user_id>", methods=["GET"])
 def get_user(user_id):
@@ -21,20 +33,6 @@ def get_user(user_id):
         if user["user_id"] == str(user_id):
             users_file.close()
             return json.dumps(user)
-
-@app.route("/add_user", methods=["GET", "POST"])
-def add_new_user():
-
-    if request.method == "POST":
-        users_file = open("users.json", "r")
-        users_object = json.load(users_file)
-        data = request.json
-        users_object["friends"].append(data)
-        users_file.close()
-        users_file = open("users.json", "w")
-        users_file.write(json.dumps(users_object))
-        users_file.close()
-        return Response(users_object, status=201)
 
 if __name__ == "__main__":
     app.run()

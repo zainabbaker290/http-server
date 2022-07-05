@@ -11,7 +11,7 @@ def all_users():
         #using json loads to read from a string 
         users_object = json.load(users_file)
         users_file.close()
-        return json.dumps(users_object["friends"])
+        return Response(json.dumps(users_object["friends"]), status = 200)
     
     if request.method == "POST":
         users_file = open("users.json", "r")
@@ -33,6 +33,8 @@ def get_user(user_id):
         if user["user_id"] == str(user_id):
             users_file.close()
             return json.dumps(user)
+    
+    return Response("user not found", status=404)
 
 if __name__ == "__main__":
     app.run()
